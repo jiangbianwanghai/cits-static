@@ -2,37 +2,10 @@ jQuery(document).ready(function() {
 
    "use strict";
 
-   $(".1ajax-project").click(function(){
-      project_name = $(".project_name").val();
-      project_discription = $("#project_discription").val();
-      if (!project_name) {
-         alert('请填写绩效圈名称');
-         $("#project_name").focus();
-         return false;
-      }
-      if (!project_discription) {
-         alert('请填写绩效圈简介');
-         $("#project_discription").focus();
-         return false;
-      }
-      $.ajax({
-        type: "POST",
-        dataType: "JSON",
-        url: "/project/add_ajax",
-        data: "project_name="+project_name+"&project_discription="+project_discription,
-        success: function(data){
-          if (data.status) {
-            location.href = '/';
-          } else {
-            alert('fail');
-          } 
-        }
-      });
-   });
-
+   //添加项目团队信息
    $("#addProject").submit(function(){
       $(this).ajaxSubmit({
-         type:"post",
+         type:"POST",
          url: "/project/add_ajax",
          dataType: "JSON",
          beforeSubmit:validFormProject,
@@ -66,19 +39,17 @@ function callBackProject(data) {
       title: '提醒',
       text: data.message,
         class_name: 'growl-success',
-        image: '/static/images/screen.png',
       sticky: false,
       time: ''
     });
     setTimeout(function(){
       location.href = window.location.href;
-    }, 2000);
+    }, 1000);
   } else {
     jQuery.gritter.add({
       title: '提醒',
       text: data.message,
         class_name: 'growl-danger',
-        image: '/static/images/screen.png',
       sticky: false,
       time: ''
     });
