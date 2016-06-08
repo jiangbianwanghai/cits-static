@@ -13,14 +13,15 @@ jQuery(document).ready(function() {
 
    "use strict";
 
+   //切换项目团队
    jQuery(".set-project").click(function(){
       var projectId = jQuery(this).attr('projectid');
       jQuery('#curr-project').text(jQuery(this).attr('projectname'));
       jQuery.cookie('cits_curr_project', projectId, { expires: 15, path: '/' }); 
-      //var url = window.location.href;
-      //var arr = url.split('?');
-      //var ar = arr[0];
-      //location.href = ar;
+      var url = window.location.href;
+      var arr = url.split('?');
+      var ar = arr[0];
+      location.href = ar;
    });
 
    // Toggle Left Menu
