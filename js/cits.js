@@ -24,6 +24,25 @@ jQuery(document).ready(function() {
       }
   });
 
+  //已读提醒
+  $('.notify-read').click(function(){
+    var url = $(this).attr("data-url");
+    var id = $(this).attr("data-id");
+    $(this).parent().html('跳转中...');
+    $.ajax({
+      type: "GET",
+      url: "/notify/read?id="+id,
+      dataType: "JSON",
+      success: function(data){
+        if (data.status) {
+          location.href = url;
+        } else {
+          alert(data.message);
+        }
+      }
+    });
+  });
+
   //读取提醒
   setTimeout(function () {
     $.ajax({
@@ -36,7 +55,7 @@ jQuery(document).ready(function() {
           $("#notify-total").append('<span class="badge">'+data.total+'</span>');
           var notify_list = '';
           for(var p in data.datas){
-            notify_list += '<li class="new"><span class="thumb"><img src="http://avatar.cits.gongchang.net/'+data.datas[p].log_sender_username+'.jpg" alt="发送者：'+data.datas[p].log_sender_realname+'" /></span><span class="desc"><span class="name">'+data.datas[p].log_sender_realname+' <span class="badge badge-success">未读</span></span><span class="msg"><a href="'+data.datas[p].log_url+'">'+data.datas[p].log_action+'了一个'+data.datas[p].log_target_type+'#'+data.datas[p].log_subject+'</a></span></span></li>';
+            notify_list += '<li class="new"><span class="thumb"><img src="http://avatar.cits.gongchang.net/'+data.datas[p].log_sender_username+'.jpg" alt="发送者：'+data.datas[p].log_sender_realname+'" /></span><span class="desc"><span class="name">'+data.datas[p].log_sender_realname+' <span class="badge badge-success">未读</span></span><span class="msg">'+data.datas[p].subject+'</span></span></li>';
           }
           $("#notify-content").append('<div class="dropdown-menu dropdown-menu-head pull-right"><h5 class="title">你有'+data.total+'个新提醒</h5><ul class="dropdown-list gen-list">'+notify_list+'<li class="new"><a href="/notify">查看所有通知</a></li></ul></div>');
         }
