@@ -4654,3 +4654,6 @@ div.error label.error:before {
 .ellipsis{
     padding-right: 10px;
 }
+.user-p a{
+    color: #fff;
+}
